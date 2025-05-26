@@ -1,6 +1,4 @@
-import { Player } from './player.js';
-import { InputHandler } from './input.js';
-import { UI } from './UI.js';
+import {  } from './.js';
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
@@ -8,79 +6,36 @@ window.addEventListener('load', function(){
     canvas.width = 1280 / 2;
     canvas.height = 720 / 2;
 
-    class Game {
-        constructor(canvas){
-            this.canvas = canvas;
-            this.width = this.canvas.width;
-            this.height = this.canvas.height;
-            this.topMargin = 90;
-            this.groundMargin = 80;
-            this.speed = 0;
-            this.maxSpeed = 2;
-            
-            this.debug = false;
-            this.player = new Player(this);
-            this.input = new InputHandler(this);
-            this.UI = new UI(this);
-            this.collisions=[];
-            this.floatingMessages = [];
-            this.fps = 70;
-            this.timer = 0;
-            this.interval = 1000/this.fps;
-            this.fontColor = 'black';
-            this.maxTime = 30 * 1000;
-            this.time = 0;
-            this.score = 0;
-            this.subScore = -5; // -5 hit score this.game.subScore
-            this.addScore = +5; // +5 hit score this.game.addScore
-            this.winningScore = 1;
-            this.gameOver = false;
-            this.lives = 5;
-        }
-        update(deltaTime){
-            this.time += deltaTime;
-            if (this.time > this.maxTime) this.gameOver = true;
+    const menuScreen = document.getElementById('menu-screen');
+    const gameContainer = document.getElementById('game-container');
 
-            this.player.update(this.input.keys, deltaTime);
-
-            // handle messages
-            this.floatingMessages.forEach(message => {
-                message.update();
-            });
-
-            // handle collision sprites 
-            this.collisions.forEach((collision, index) => {
-                collision.update(deltaTime);
-                //if (collision.markedForDeletion) this.collisions.splice(index, 1);
-            });
-
-            this.collisions = this.collisions.filter(collision => !collision.markedForDeletion);
-        }
-        draw(context){
-            this.player.draw(context);
-            
-            this.collisions.forEach(collision => {
-                collision.draw(context);
-            });
-            this.floatingMessages.forEach(message => {
-                message.draw(context);
-            });
-            this.UI.draw(context);
-        }
+    function addAppToMenu(name, onClick) {
+        const app = createGameElement('div', 'app', name);
+        app.addEventListener('click', onClick);
+        menuScreen.appendChild(app);
+    }
+    function drawScene(name, onClick) {
+        const app = createGameElement('div', 'app', name);
+        app.addEventListener('click', onClick);
+        menuScreen.appendChild(app);
     }
 
-    
-
-    const game = new Game(canvas);
-    let lastTime = 0;
-
-    function animate(timeStamp){
-        const deltaTime = timeStamp - lastTime;
-        lastTime = timeStamp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        game.update(deltaTime);
-        game.draw(ctx);
-        if (!game.gameOver) requestAnimationFrame(animate);
+    function openSnakeGame() {
+        menuScreen.style.display = 'none';
+        gameContainer.style.display = 'flex';
+        // You can initialize the snake game here later
     }
-    animate(0);
+
+    // Create a snake of food cube/div
+    function createGameElement(tag,className, textContent){
+        const element = document.createElement(tag);
+        element.className = className;
+        element.textContent = textContent;
+        return element;
+    }
+
+    // Add the Snake Game app
+    addAppToMenu('Snake', openSnakeGame);
+
+    // You can add canvas animation code here later
 });
