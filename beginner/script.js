@@ -27,8 +27,8 @@ function createGameElement(tag,className){
 
 //set the position of snake or food
 function setPosition(element, position){
-    element.slyle.gridColumn = position.x;
-    element.slyle.gridRow = position.y;
+    element.style.gridColumn = position.x;
+    element.style.gridRow = position.y;
 }
 
 // Testing draw function

@@ -15,7 +15,7 @@ body {
 }
 body,
 .snake {
-    background-color: #414141;
+    background-color: darkgreen;
 }
 #game-board{
     border-radius: 100px;
