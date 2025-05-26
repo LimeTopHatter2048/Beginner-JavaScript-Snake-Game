@@ -85,6 +85,6 @@ body,
     position: absolute;
 }
 
-#instruction-text, #logo{
+/* #instruction-text, #logo{
     display: none;
-}
+} */
