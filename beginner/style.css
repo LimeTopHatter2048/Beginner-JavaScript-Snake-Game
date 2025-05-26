@@ -7,6 +7,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px; /* space between scores and board */
     height: 100vh;
     font-family: "VT323", monospace;
     font-weight: 400;
@@ -26,18 +27,64 @@ body,
 .game-border-1 {
     border: #595959 solid 10px;
     border-radius: 30px;
-    /* box-shadow: inset 0 0 0 10px #595959; *//* box shadow fills in the gap between borders  */
+    box-shadow: inset 0 0 0 10px #595959;/* box shadow fills in the gap between borders  */
 }
 .game-border-2 {
     border: #abb78a solid 10px;
     border-radius: 30px;
-    /* box-shadow: inset 0 0 0 10px #abb78a; *//* box shadow fills in the gap between borders  */
+    box-shadow: inset 0 0 0 10px #abb78a;/* box shadow fills in the gap between borders  */
 }
 .game-border-3 {
     border: #8b966c solid 10px;
     border-radius: 30px;
-    /* box-shadow: inset 0 0 0 10px #8b966c; *//* box shadow fills in the gap between borders  */
+    box-shadow: inset 0 0 0 10px #8b966c;/* box shadow fills in the gap between borders  */
 }
-#instruction-text, img {
+#instruction-text-text {
+    position: absolute;
+    top: 60%;
+    color: #333;
+    width: 300px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 30px;
+    margin: 0;
+}
+.scores {
+    display: flex;
+    justify-content: space-between;
+    width: 220px; /* or match the width of your game board */
+    padding: 0 10px;
+}
+#score {
+    color: #abb78a;
+}
+#score, #highScore {
+    font-size: 40px;
+    font-weight: bolder;
+    margin: 10px 0;
+}
+#highScore {
+    color: aliceblue;
+}
+.game-border-3,
+#logo {
+    background-color: #c4cfa3;
+}
+
+.snake {
+    border: #5a5a5a 1px dotted;
+}
+
+.food{
+    /* background-color: #dedede; */
+    background-color: lime;
+    border: #999 5px solid;
+}
+
+#logo {
+    position: absolute;
+}
+
+#instruction-text, #logo{
     display: none;
 }
