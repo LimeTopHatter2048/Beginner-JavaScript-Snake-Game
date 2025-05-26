@@ -39,9 +39,9 @@ body,
     border-radius: 30px;
     box-shadow: inset 0 0 0 10px #8b966c;/* box shadow fills in the gap between borders  */
 }
-#instruction-text-text {
+#instruction-text {
     position: absolute;
-    top: 60%;
+    top: 70%;
     color: #333;
     width: 300px;
     text-align: center;
@@ -84,7 +84,3 @@ body,
 #logo {
     position: absolute;
 }
-
-/* #instruction-text, #logo{
-    display: none;
-} */
