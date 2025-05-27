@@ -9,7 +9,7 @@ window.addEventListener('load', function(){
     const gameContainer = document.getElementById('game-container');
 
     // define game variables
-    let apps = [{ name: 'Snake', x: 5, y: 3 }];
+    let apps = [{ name: 'Snake', x: 4, y: 1 }];
 
     function hideAllScreens() {
         const screens = document.querySelectorAll('.screen');
@@ -23,7 +23,7 @@ window.addEventListener('load', function(){
 
     function switchToMenu() {
         hideAllScreens();
-        document.getElementById('menu-screen').style.display = 'flex';
+        document.getElementById('menu-screen').style.display = 'grid';
     }
 
     function openSnakeGame() {
@@ -78,7 +78,7 @@ window.addEventListener('load', function(){
 
     //set the position of snake or food
     function setPosition(element, position){
-        element.style.gridColumn = `${position.x}`;
-        element.style.gridRow = `${position.y}`;
+        element.style.gridColumn = position.x;
+        element.style.gridRow = position.y;
     }
 });
