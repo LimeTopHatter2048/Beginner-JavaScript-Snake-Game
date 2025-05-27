@@ -1,6 +1,5 @@
-import {  } from './.js';
-
 window.addEventListener('load', function(){
+    showLoadingScreen();
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 1280 / 2;
@@ -9,15 +8,19 @@ window.addEventListener('load', function(){
     const menuScreen = document.getElementById('menu-screen');
     const gameContainer = document.getElementById('game-container');
 
-    function addAppToMenu(name, onClick) {
-        const app = createGameElement('div', 'app', name);
-        app.addEventListener('click', onClick);
-        menuScreen.appendChild(app);
+    function hideAllScreens() {
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => screen.style.display = 'none');
     }
-    function drawScene(name, onClick) {
-        const app = createGameElement('div', 'app', name);
-        app.addEventListener('click', onClick);
-        menuScreen.appendChild(app);
+
+    function showLoadingScreen() {
+        hideAllScreens();
+        document.getElementById('loading-screen').style.display = 'flex';
+    }
+
+    function switchToMenu() {
+        hideAllScreens();
+        document.getElementById('menu-screen').style.display = 'flex';
     }
 
     function openSnakeGame() {
@@ -25,7 +28,6 @@ window.addEventListener('load', function(){
         gameContainer.style.display = 'flex';
         // You can initialize the snake game here later
     }
-
     // Create a snake of food cube/div
     function createGameElement(tag,className, textContent){
         const element = document.createElement(tag);
@@ -33,6 +35,26 @@ window.addEventListener('load', function(){
         element.textContent = textContent;
         return element;
     }
+    function addAppToMenu(name, onClick) {
+        const app = createGameElement('div', 'app', name);
+        app.addEventListener('click', onClick);
+        menuScreen.appendChild(app);
+    }
+    // Option 1: Dummy placeholder
+    function initializeGame() {
+        console.log("Game initialized");
+    }
+
+    // Simulate loading delay (or wrap async initialization here)
+    setTimeout(() => {
+        try {
+            initializeGame(); // Placeholder for any setup or error handling
+            switchToMenu();
+        } catch (error) {
+            console.error("Loading Error:", error);
+            alert("Something went wrong. Please reload.");
+        }
+    }, 1000);
 
     // Add the Snake Game app
     addAppToMenu('Snake', openSnakeGame);
