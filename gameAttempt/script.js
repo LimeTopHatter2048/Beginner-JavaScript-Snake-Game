@@ -8,6 +8,9 @@ window.addEventListener('load', function(){
     const menuScreen = document.getElementById('menu-screen');
     const gameContainer = document.getElementById('game-container');
 
+    // define game variables
+    let apps = [{ name: 'Snake', x: 5, y: 3 }];
+
     function hideAllScreens() {
         const screens = document.querySelectorAll('.screen');
         screens.forEach(screen => screen.style.display = 'none');
@@ -33,13 +36,25 @@ window.addEventListener('load', function(){
         const element = document.createElement(tag);
         element.className = className;
         element.textContent = textContent;
+        //element.style.position = 'relative'; // stays in grid flow
         return element;
     }
-    function addAppToMenu(name, onClick) {
-        const app = createGameElement('div', 'app', name);
-        app.addEventListener('click', onClick);
-        menuScreen.appendChild(app);
+    //
+    function drawApps() {
+        // Clear existing apps to avoid duplicates
+        const oldApps = menuScreen.querySelectorAll('.app');
+        oldApps.forEach(app => app.remove());
+
+        apps.forEach((appData) => {
+            const appElement = createGameElement('div', 'app', appData.name);
+            setPosition(appElement, appData);
+            appElement.addEventListener('click', () => {
+                if (appData.name === 'Snake') openSnakeGame();
+            });
+            menuScreen.appendChild(appElement);
+        });
     }
+    //
     // Option 1: Dummy placeholder
     function initializeGame() {
         console.log("Game initialized");
@@ -57,7 +72,13 @@ window.addEventListener('load', function(){
     }, 1000);
 
     // Add the Snake Game app
-    addAppToMenu('Snake', openSnakeGame);
+    drawApps();
 
     // You can add canvas animation code here later
+
+    //set the position of snake or food
+    function setPosition(element, position){
+        element.style.gridColumn = `${position.x}`;
+        element.style.gridRow = `${position.y}`;
+    }
 });
