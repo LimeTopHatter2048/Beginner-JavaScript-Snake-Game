@@ -84,10 +84,11 @@
     align-items: center;
     font-size: 12px;
     border-radius: 8px;
-    width: 70%;        /* 🔥 Fills grid cell */
-    height: 70%;       /* 🔥 Fills grid cell */
+    width: 70%;
+    height: 70%;
     transition: transform 0.2s;
     animation: popIn 0.3s ease-out;
+    margin: auto; /* 🔥 This centers it in the grid cell */
 }
 
 .app:hover {
