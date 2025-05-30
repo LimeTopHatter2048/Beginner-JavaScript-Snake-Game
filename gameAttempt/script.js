@@ -1,3 +1,5 @@
+import { SnakeApp } from './gameApp_snake.js';
+
 window.addEventListener('load', function(){
     showLoadingScreen();
     const canvas = document.getElementById('canvas1');
@@ -9,7 +11,7 @@ window.addEventListener('load', function(){
     const gameContainer = document.getElementById('game-container');
 
     // define game variables
-    let apps = [{ name: 'Snake', x: 4, y: 1 }];
+    let snakeApp;
 
     function hideAllScreens() {
         const screens = document.querySelectorAll('.screen');
@@ -27,21 +29,31 @@ window.addEventListener('load', function(){
     }
 
     function openSnakeGame() {
-        menuScreen.style.display = 'none';
-        gameContainer.style.display = 'flex';
-        // You can initialize the snake game here later
+        console.log("Opening Snake Game");
+        hideAllScreens();
+
+        if (!snakeApp) {
+            snakeApp = new SnakeApp();
+            gameContainer.appendChild(snakeApp.getElement());
+        }
+
+        // Show game console and start game
+        const gameEl = snakeApp.getElement();
+        gameEl.style.display = 'flex';
+        snakeApp.start();
     }
+
     // Create a snake of food cube/div
     function createGameElement(tag,className, textContent){
         const element = document.createElement(tag);
         element.className = className;
         element.textContent = textContent;
-        //element.style.position = 'relative'; // stays in grid flow
         return element;
     }
     //
     function drawApps() {
         // Clear existing apps to avoid duplicates
+        const apps = [{ name: 'Snake', x: 4, y: 1 }];
         const oldApps = menuScreen.querySelectorAll('.app');
         oldApps.forEach(app => app.remove());
 
