@@ -7,7 +7,9 @@ window.addEventListener('load', function(){
     canvas.width = 1280 / 2;
     canvas.height = 720 / 2;
 
+    const screenContainer = document.querySelector('.screen-container');
     const menuScreen = document.getElementById('menu-screen');
+    const activeApps = [];
 
     // define game variables
     let snakeApp;
@@ -40,8 +42,8 @@ window.addEventListener('load', function(){
             gameContainer.className = 'screen';
             
             // ✅ Append it to the .screen-container
-            const screenContainer = document.querySelector('.screen-container');
             screenContainer.appendChild(gameContainer);
+            activeApps.push({ id: 'game-console', name: 'Snake' });
         }
         // Clear any old content
         gameContainer.innerHTML = '';
@@ -82,6 +84,47 @@ window.addEventListener('load', function(){
     function initializeGame() {
         console.log("Game initialized");
     }
+
+    // Home Button (🔳) — go to menu but keep apps active
+    const homeButton = document.getElementById('home-button');
+    homeButton.addEventListener('click', () => {
+        console.log("Returning to home screen...");
+        hideAllScreens();
+        document.getElementById('menu-screen').style.display = 'grid';
+    });
+    // Back Button (⬅️) — for in-app logic (optional for now)
+    const backButton = document.getElementById('back-button');
+    backButton.addEventListener('click', () => {
+        console.log("Back button clicked");
+        // Add in-app logic later if needed
+    });
+    //Task View Button (☰) — show open apps (third perspective)
+    const taskViewButton = document.getElementById('task-view-button');
+    taskViewButton.addEventListener('click', () => {
+        console.log("Task view opened");
+        hideAllScreens();
+
+        const taskViewScreen = document.getElementById('task-view-screen');
+        if (!taskViewScreen) {
+            const screen = document.createElement('div');
+            screen.id = 'task-view-screen';
+            screen.className = 'screen';
+            screen.style.display = 'grid';
+            screen.innerHTML = '<h2>Open Apps</h2>';
+            activeApps.forEach(app => {
+                const appBtn = document.createElement('button');
+                appBtn.textContent = app.name;
+                appBtn.onclick = () => {
+                    hideAllScreens();
+                    document.getElementById(app.id).style.display = 'flex';
+                };
+                screen.appendChild(appBtn);
+            });
+            screenContainer.appendChild(screen);
+        } else {
+            taskViewScreen.style.display = 'grid';
+        }
+    });
 
     // Simulate loading delay (or wrap async initialization here)
     setTimeout(() => {
