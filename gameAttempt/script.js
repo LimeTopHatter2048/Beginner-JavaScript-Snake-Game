@@ -8,12 +8,12 @@ window.addEventListener('load', function(){
     canvas.height = 720 / 2;
 
     const menuScreen = document.getElementById('menu-screen');
-    const gameContainer = document.getElementById('game-container');
 
     // define game variables
     let snakeApp;
 
     function hideAllScreens() {
+        // make current screens disappear
         const screens = document.querySelectorAll('.screen');
         screens.forEach(screen => screen.style.display = 'none');
     }
@@ -32,14 +32,25 @@ window.addEventListener('load', function(){
         console.log("Opening Snake Game");
         hideAllScreens();
 
-        if (!snakeApp) {
-            snakeApp = new SnakeApp();
-            gameContainer.appendChild(snakeApp.getElement());
+        // Create game console container if it doesn't exist
+        let gameContainer = document.getElementById('game-container');
+        if (!gameContainer) {
+            gameContainer = document.createElement('div');
+            gameContainer.id = 'game-container';
+            gameContainer.className = 'screen';
+            
+            // ✅ Append it to the .screen-container
+            const screenContainer = document.querySelector('.screen-container');
+            screenContainer.appendChild(gameContainer);
         }
+        // Clear any old content
+        gameContainer.innerHTML = '';
 
-        // Show game console and start game
-        const gameEl = snakeApp.getElement();
-        gameEl.style.display = 'flex';
+        // Initialize SnakeApp and append its content
+        snakeApp = new SnakeApp();
+        const snakeScreen = snakeApp.getHTML();
+        gameContainer.appendChild(snakeScreen);
+        gameContainer.style.display = 'flex';
         snakeApp.start();
     }
 
