@@ -77,9 +77,11 @@
 #game-board{
     border-radius: 100px;
     display: grid;
-    grid-template-columns: repeat(20, 20px);
-    grid-template-rows: repeat(20, 20px);
+    grid-template-columns: repeat(20, 10px);
+    grid-template-rows: repeat(20, 10px);
     margin: 5px;
+
+    position: relative; /* anchor point for absolute children */
 }
 .game-border-1 {
     border: #595959 solid 10px;
@@ -97,16 +99,21 @@
     box-shadow: inset 0 0 0 10px #8b966c;/* box shadow fills in the gap between borders  */
     background-color: #c4cfa3;
 }
+#instruction-text, #logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+}
 
 #instruction-text {
-    position: absolute;
-    top: 70%;
-    width: 300px;
-    text-align: center;
-    text-transform: capitalize;
-    color: #333;
-    padding: 30px;
-    margin: 0;
+    top: 65%; /* Adjust vertically as needed */
+}
+
+#logo {
+    top: 40%; /* Adjust vertically as needed */
+    width: 120px; /* Optional: control size */
 }
 /* Scores */
 .scores {
@@ -140,10 +147,6 @@
     border: 5px solid #999;
 }
 
-#logo {
-    position: absolute;
-    background-color: #c4cfa3;
-}
 /* -----------------------------------
    App Icons
 ----------------------------------- */

@@ -2,8 +2,8 @@ export class SnakeApp {
     constructor() {
         console.log("SnakeApp initialized!");
         this.wrapper = document.createElement('div');
-        this.wrapper.className = 'screen';
-        this.wrapper.id = 'game-console';
+        this.wrapper.className = 'snake-app-inner'; // changed from 'screen'
+        this.wrapper.id = 'snake-wrapper'; // NEW: avoid ID conflict
 
         this.wrapper.innerHTML = `
             <div>

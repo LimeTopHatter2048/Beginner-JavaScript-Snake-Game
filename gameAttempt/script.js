@@ -34,26 +34,25 @@ window.addEventListener('load', function(){
         console.log("Opening Snake Game");
         hideAllScreens();
 
-        // Create game console container if it doesn't exist
         let gameContainer = document.getElementById('game-console');
+
+        // If it doesn't exist, create it and initialize
         if (!gameContainer) {
             gameContainer = document.createElement('div');
             gameContainer.id = 'game-console';
             gameContainer.className = 'screen';
             
-            // ✅ Append it to the .screen-container
+            // ✅ Initialize SnakeApp and append its content
+            snakeApp = new SnakeApp();
+            const snakeScreen = snakeApp.getHTML(); // already includes full innerHTML
+            gameContainer.appendChild(snakeScreen);
             screenContainer.appendChild(gameContainer);
             activeApps.push({ id: 'game-console', name: 'Snake' });
-        }
-        // Clear any old content
-        gameContainer.innerHTML = '';
 
-        // Initialize SnakeApp and append its content
-        snakeApp = new SnakeApp();
-        const snakeScreen = snakeApp.getHTML();
-        gameContainer.appendChild(snakeScreen);
+            snakeApp.start();
+        }
+
         gameContainer.style.display = 'flex';
-        snakeApp.start();
     }
 
     // Create a snake of food cube/div
