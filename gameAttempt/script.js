@@ -35,10 +35,10 @@ window.addEventListener('load', function(){
         hideAllScreens();
 
         // Create game console container if it doesn't exist
-        let gameContainer = document.getElementById('game-container');
+        let gameContainer = document.getElementById('game-console');
         if (!gameContainer) {
             gameContainer = document.createElement('div');
-            gameContainer.id = 'game-container';
+            gameContainer.id = 'game-console';
             gameContainer.className = 'screen';
             
             // ✅ Append it to the .screen-container
