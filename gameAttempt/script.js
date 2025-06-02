@@ -47,7 +47,11 @@ window.addEventListener('load', function(){
             const snakeScreen = snakeApp.getHTML(); // already includes full innerHTML
             gameContainer.appendChild(snakeScreen);
             screenContainer.appendChild(gameContainer);
-            activeApps.push({ id: 'game-console', name: 'Snake' });
+            // Only add if it's not already in activeApps
+            const alreadyExists = activeApps.some(app => app.id === 'game-console');
+            if (!alreadyExists) {
+                activeApps.push({ id: 'game-console', name: 'Snake' });
+            }
 
             snakeApp.start();
         }
@@ -103,26 +107,34 @@ window.addEventListener('load', function(){
         console.log("Task view opened");
         hideAllScreens();
 
-        const taskViewScreen = document.getElementById('task-view-screen');
-        if (!taskViewScreen) {
-            const screen = document.createElement('div');
-            screen.id = 'task-view-screen';
-            screen.className = 'screen';
-            screen.style.display = 'grid';
-            screen.innerHTML = '<h2>Open Apps</h2>';
-            activeApps.forEach(app => {
-                const appBtn = document.createElement('button');
-                appBtn.textContent = app.name;
-                appBtn.onclick = () => {
-                    hideAllScreens();
-                    document.getElementById(app.id).style.display = 'flex';
-                };
-                screen.appendChild(appBtn);
-            });
-            screenContainer.appendChild(screen);
+        let taskViewScreen = document.getElementById('task-view-screen');
+
+        // If it already exists, clear it and reuse
+        if (taskViewScreen) {
+            taskViewScreen.innerHTML = '';
         } else {
-            taskViewScreen.style.display = 'grid';
+            taskViewScreen = document.createElement('div');
+            taskViewScreen.id = 'task-view-screen';
+            taskViewScreen.className = 'screen';
+            screenContainer.appendChild(taskViewScreen);
         }
+
+        taskViewScreen.style.display = 'grid';
+
+        // Add title and buttons
+        const heading = document.createElement('h2');
+        heading.textContent = 'Open Apps';
+        taskViewScreen.appendChild(heading);
+
+        activeApps.forEach(app => {
+            const appBtn = document.createElement('button');
+            appBtn.textContent = app.name;
+            appBtn.onclick = () => {
+                hideAllScreens();
+                document.getElementById(app.id).style.display = 'flex';
+            };
+            taskViewScreen.appendChild(appBtn);
+        });
     });
 
     // Simulate loading delay (or wrap async initialization here)
