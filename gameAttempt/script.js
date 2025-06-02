@@ -127,13 +127,38 @@ window.addEventListener('load', function(){
         taskViewScreen.appendChild(heading);
 
         activeApps.forEach(app => {
+            const appContainer = document.createElement('div');
+            appContainer.style.display = 'flex';
+            appContainer.style.alignItems = 'center';
+            appContainer.style.justifyContent = 'space-between';
+            appContainer.style.gap = '10px';
+            appContainer.style.marginBottom = '8px';
+
             const appBtn = document.createElement('button');
             appBtn.textContent = app.name;
             appBtn.onclick = () => {
                 hideAllScreens();
                 document.getElementById(app.id).style.display = 'flex';
             };
-            taskViewScreen.appendChild(appBtn);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '❌';
+            closeBtn.onclick = () => {
+                // Remove from DOM if exists
+                const appElement = document.getElementById(app.id);
+                if (appElement) appElement.remove();
+
+                // Remove from activeApps array
+                const index = activeApps.findIndex(a => a.id === app.id);
+                if (index !== -1) activeApps.splice(index, 1);
+
+                // Refresh Task View
+                taskViewButton.click(); // simulate click to refresh
+            };
+
+            appContainer.appendChild(appBtn);
+            appContainer.appendChild(closeBtn);
+            taskViewScreen.appendChild(appContainer);
         });
     });
 
