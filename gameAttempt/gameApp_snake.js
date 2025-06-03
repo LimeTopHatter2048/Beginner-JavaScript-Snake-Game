@@ -19,6 +19,6 @@ export class SnakeApp {
 
     start() {
         console.log("Game started!");
-        this.engine.startGame();
+        this.engine.renderInitialScreen();
     }
 }

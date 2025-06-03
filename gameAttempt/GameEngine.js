@@ -23,8 +23,15 @@ export class GameEngine {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         document.addEventListener('keydown', this.handleKeyPress);
     }
+    renderInitialScreen(){
+        this.board.innerHTML = '';
+        this.instructionText.style.display = 'block';
+        this.logo.style.display = 'block';
+        this.instructionText.textContent = 'Press spacebar to start game';
+    }
 
     startGame() {
+        if (this.gameStarted) return; // already running
         this.gameStarted = true;
         this.instructionText.style.display = 'none';
         this.logo.style.display = 'none';
@@ -52,6 +59,10 @@ export class GameEngine {
     }
 
     draw() {
+        if (!this.gameStarted) {
+            this.board.innerHTML = ''; // Clear board if game hasn't started
+            return;
+        }
         this.board.innerHTML = '';
         this.snake.draw(this.board);
         this.food.draw(this.board);
@@ -89,11 +100,17 @@ export class GameEngine {
     resetGame() {
         clearInterval(this.interval);
         this.gameStarted = false;
+
         this.scoreManager.reset();
         this.snake.reset();
+        this.food.respawn(this.gridSize, this.snake.body); // Optional: prep next round
+
         this.direction = 'right';
         this.speed = 200;
+
+        this.board.innerHTML = ''; // 🧹 Clear board visuals
         this.instructionText.style.display = 'block';
+        this.instructionText.textContent = 'Press spacebar to play again';
         this.logo.style.display = 'block';
     }
 }
