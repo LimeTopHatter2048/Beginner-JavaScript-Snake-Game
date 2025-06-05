@@ -1,16 +1,33 @@
 /* -----------------------------------
+   Global Fixes and Overflow Protection
+----------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: whitesmoke;
+}
+
+/* -----------------------------------
    Canvas Background (behind phone)
 ----------------------------------- */
+
 #canvas1 {
     /* background: url('img/background.png'); */
     position: absolute;
     width: calc(1280px / 2);
     height: calc(720px / 2);
+    max-width: 100vw;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
-    /* background: url('img/background.png'); */
 }
 
 /* -----------------------------------
@@ -31,6 +48,7 @@
     justify-content: space-between;
     overflow: hidden;
     z-index: 1;
+    max-width: 100vw;
 }
 
 /* -----------------------------------
@@ -75,13 +93,14 @@
     background-color: #414141;
 }
 #game-board{
-    border-radius: 100px;
     display: grid;
     grid-template-columns: repeat(20, 10px);
     grid-template-rows: repeat(20, 10px);
-    margin: 5px;
-
-    position: relative; /* anchor point for absolute children */
+    margin: 5px auto;
+    border-radius: 100px;
+    position: relative;
+    max-width: 95%;
+    aspect-ratio: 1;
 }
 .game-border-1 {
     border: #595959 solid 10px;
@@ -99,12 +118,20 @@
     box-shadow: inset 0 0 0 10px #8b966c;/* box shadow fills in the gap between borders  */
     background-color: #c4cfa3;
 }
-#instruction-text, #logo {
+/* -----------------------------------
+   Game Instructions and Logo
+----------------------------------- */
+#instruction-text, 
+#logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     text-align: center;
+    color: white;
+    font-size: 16px;
+    font-family: sans-serif;
+    max-width: 90%;
 }
 
 #instruction-text {
@@ -115,7 +142,14 @@
     top: 40%; /* Adjust vertically as needed */
     width: 120px; /* Optional: control size */
 }
-/* Scores */
+/* Hidden utility class for toggling */
+.hidden {
+    display: none !important;
+}
+
+/* -----------------------------------
+   Scores
+----------------------------------- */
 .scores {
     display: flex;
     justify-content: space-between;
